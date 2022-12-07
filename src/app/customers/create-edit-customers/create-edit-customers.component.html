@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{actionHeader}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="customerForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Name</mat-label>
+            <input formControlName="customerName" matInput placeholder="Customer Name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" type="email" matInput placeholder="Email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input formControlName="phone" matInput placeholder="Phone">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <input formControlName="address" matInput placeholder="Address">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="actionCustomer()">{{actionBtn}}</button>
+</div>

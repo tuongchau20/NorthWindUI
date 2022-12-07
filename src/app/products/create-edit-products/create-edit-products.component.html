@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{actionHeader}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="productForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Product Code</mat-label>
+            <input formControlName="productCode" matInput placeholder="Product Code">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Product Name</mat-label>
+            <input formControlName="productName" matInput placeholder="Product Name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Amount</mat-label>
+            <input formControlName="amount" matInput type="number" placeholder="Amount">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Product Owner</mat-label>
+            <input formControlName="productOwner" matInput placeholder="Product Owner">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="actionProduct()">{{actionBtn}}</button>
+</div>
