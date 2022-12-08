@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { SharedService } from 'src/app/shared.service';
 import { MatDialogRef,MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/notification.service';
 
 @Component({
   selector: 'app-create-edit-customers',
@@ -13,7 +14,7 @@ export class CreateEditCustomersComponent implements OnInit {
   customerForm !: FormGroup;
   actionBtn: string = "Save";
   actionHeader: string = "Add Customer";
-  constructor(private formBuilder: FormBuilder, private service: SharedService, private matDialogRef: MatDialogRef<CreateEditCustomersComponent>, @Inject(MAT_DIALOG_DATA) public editData: any) { }
+  constructor(private notifyService: NotificationService,private formBuilder: FormBuilder, private service: SharedService, private matDialogRef: MatDialogRef<CreateEditCustomersComponent>, @Inject(MAT_DIALOG_DATA) public editData: any) { }
 
   ngOnInit(): void {
     if(this.editData){
@@ -46,11 +47,11 @@ export class CreateEditCustomersComponent implements OnInit {
     if(this.customerForm.valid){
       this.service.createCustomers(this.customerForm.value).subscribe(res => {
         if(res == true){
-          alert("Create customer successfully!!");
+          this.notifyService.showSuccess("Create customer successfully!!", "Succcess");
           this.customerForm.reset();
           this.matDialogRef.close('save');
         }else{
-          alert("Create customer failed!!");
+          this.notifyService.showError("Create customer failed!!", "Error");
         }
       })
     }
@@ -59,11 +60,11 @@ export class CreateEditCustomersComponent implements OnInit {
     if(this.customerForm.valid){
       this.service.updateCustomers(this.customerForm.value).subscribe(res => {
         if(res == true){
-          alert("Update customer successfully!!");
+          this.notifyService.showSuccess("Update customer successfully!!", "Succcess");
           this.customerForm.reset();
           this.matDialogRef.close('update');
         }else{
-          alert("Update customer failed!!");
+          this.notifyService.showError("Update customer failed!!", "Error");
         }
       })
     }

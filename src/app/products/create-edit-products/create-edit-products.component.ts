@@ -49,6 +49,8 @@ export class CreateEditProductsComponent implements OnInit {
       })
     }
     
+    console.log(this.editData);
+    
   }
   actionProduct(){
     if(!this.editData){
@@ -74,13 +76,11 @@ export class CreateEditProductsComponent implements OnInit {
       // })
       this.service.createProducts(this.productForm.value).subscribe(res => {
         if(res == true){
-          // this.notifyService.showSuccess("Create product successfully!!", "Succcess");
-          alert("Create product successfully!!");
+          this.notifyService.showSuccess("Create product successfully!!", "Succcess");
           this.productForm.reset();
           this.matDialogRef.close('save');
         }else{
-          // this.notifyService.showError("Create product failed!!", "Error");
-          alert("Create product failed!!");
+          this.notifyService.showError("Create product failed!!", "Error");
         }
       })
     }
@@ -89,15 +89,14 @@ export class CreateEditProductsComponent implements OnInit {
     if(this.productForm.valid){
       this.service.updateProducts(this.productForm.value).subscribe(res => {
         if(res == true){
-          alert("Update product successfully!!");
-          // this.notifyService.showSuccess("Update product successfully!!", "Succcess");
+          this.notifyService.showSuccess("Update product successfully!!", "Succcess");
           this.productForm.reset();
           this.matDialogRef.close('update');
         }else{
-          alert("Update product failed!!");
-          // this.notifyService.showError("Update product failed!!", "Error");
+          this.notifyService.showError("Update product failed!!", "Error");
         }
       })
     }
+    
   }
 }

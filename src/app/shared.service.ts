@@ -38,4 +38,25 @@ export class SharedService {
   deleteCustomers(val: any){
     return this.http.delete(this.APIUrl+'/customers/'+ val);
   }
+  getAllBuyOrders(): Observable<any[]> {
+    return this.http.get<any>(this.APIUrl+'/BuyOrder');
+  }
+  getBuyOrderById(val: any) {
+    return this.http.get<any>(this.APIUrl+'/BuyOrder/' + val);
+  }
+  createBuyOrders(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.APIUrl+'/BuyOrder', val, httpOptions);
+  }
+  updateBuyOrders(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put(this.APIUrl+'/BuyOrder', val, httpOptions);
+  }
+  updateBuyOrdersDetail(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put(this.APIUrl+'/BuyOrderDetail', val, httpOptions);
+  }
+  deleteBuyOrders(val: any){
+    return this.http.delete(this.APIUrl+'/BuyOrder/'+ val);
+  }
 }

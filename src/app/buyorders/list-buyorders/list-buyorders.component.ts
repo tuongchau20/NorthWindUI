@@ -1,42 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { CreateEditProductsComponent } from '../create-edit-products/create-edit-products.component';
 import { SharedService } from 'src/app/shared.service';
 import {AfterViewInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { NotificationService } from 'src/app/notification.service';
+import { CreateEditBuyordersComponent } from '../create-edit-buyorders/create-edit-buyorders.component';
 
 @Component({
-  selector: 'app-list-products',
-  templateUrl: './list-products.component.html',
-  styleUrls: ['./list-products.component.css']
+  selector: 'app-list-buyorders',
+  templateUrl: './list-buyorders.component.html',
+  styleUrls: ['./list-buyorders.component.css']
 })
-export class ListProductsComponent implements OnInit {
-  displayedColumns: string[] = ['id','productCode', 'productName', 'amount', 'productOwner','action'];
+export class ListBuyordersComponent implements OnInit {
+  displayedColumns: string[] = ['id','orderNo', 'buyerName', 'totalPrice','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-
   constructor(private dialog: MatDialog, private service: SharedService,private notifyService: NotificationService) { }
 
   ngOnInit(): void {
-    this.getAllProduct();
+    this.getAllBuyOrder();
   }
   openDialog() {
-    this.dialog.open(CreateEditProductsComponent, {
-      width: '30%',
+    this.dialog.open(CreateEditBuyordersComponent, {
+      width: '60%',
     }).afterClosed().subscribe(val=>{
       if(val == 'save'){
-        this.getAllProduct();
+        this.getAllBuyOrder();
       }
     })
   }
-  getAllProduct(){
-    this.service.getAllProducts().subscribe({
+  getAllBuyOrder(){
+    this.service.getAllBuyOrders().subscribe({
       next: (data) => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.sort = this.sort;
@@ -55,24 +54,24 @@ export class ListProductsComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  editProduct(row: any){
-    this.dialog.open(CreateEditProductsComponent, {
-      width: '30%',
+  editBuyOrder(row: any){
+    this.dialog.open(CreateEditBuyordersComponent, {
+      width: '60%',
       data: row
     }).afterClosed().subscribe(val=>{
       if(val == 'update'){
-        this.getAllProduct();
+        this.getAllBuyOrder();
       }
     })
   }
-  deleteProduct(id: any){
+  deleteBuyOrder(id: any){
     if(confirm("Are you sure delete product?")){
-      this.service.deleteProducts(id).subscribe(res => {
+      this.service.deleteBuyOrders(id).subscribe(res => {
         if(res = true){
-          this.notifyService.showSuccess("Delete product successfully!!", "Succcess");
-          this.getAllProduct();
+          this.notifyService.showSuccess("Delete buyorder successfully!!", "Succcess");
+          this.getAllBuyOrder();
         }else{
-          this.notifyService.showError("Delete product failed!!", "Error");
+          this.notifyService.showError("Delete buyorder failed!!", "Error");
         }
       })
     }

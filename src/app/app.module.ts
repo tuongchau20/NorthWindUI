@@ -22,6 +22,11 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { ToastrModule } from 'ngx-toastr';
+import { BuyordersComponent } from './buyorders/buyorders.component';
+import { ListBuyordersComponent } from './buyorders/list-buyorders/list-buyorders.component';
+import { CreateEditBuyordersComponent } from './buyorders/create-edit-buyorders/create-edit-buyorders.component';
+import {MatSelectModule} from '@angular/material/select';
+import { ViewDetailBuyordersComponent } from './buyorders/view-detail-buyorders/view-detail-buyorders.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,11 @@ import { ToastrModule } from 'ngx-toastr';
     CreateEditProductsComponent,
     CustomersComponent,
     ListCustomersComponent,
-    CreateEditCustomersComponent
+    CreateEditCustomersComponent,
+    BuyordersComponent,
+    ListBuyordersComponent,
+    CreateEditBuyordersComponent,
+    ViewDetailBuyordersComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +63,7 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton: true,
       progressBar: true,
     }),
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

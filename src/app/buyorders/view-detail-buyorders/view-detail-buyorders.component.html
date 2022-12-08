@@ -1,0 +1,36 @@
+<div class="container">
+    <div style="margin-top: 10px">
+        <button mat-raised-button color="accent">Add buyOrderDetails</button>
+    </div>
+    <p>OrderNo: {{buyOrderDetail.orderNo}}</p>
+    <p>BuyerName: {{buyOrderDetail.buyerName}}</p>
+    <p>TotalPrice: {{buyOrderDetail.totalPrice}}</p>
+    <div style="margin-top: 10px">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Prices</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let buy of buyOrderDetail.buyOrderDetails">
+                    <td>{{buy.productId}}</td>
+                    <td>{{buy.amount}}</td>
+                    <td>{{buy.prices}}</td>
+                    <td>
+                        <button mat-icon-button color="primary">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+            </tbody>
+        </table>
+    </div>
+</div>

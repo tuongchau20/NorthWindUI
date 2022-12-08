@@ -1,0 +1,116 @@
+<h1 mat-dialog-title>{{actionHeader}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="buyorderForm">
+        <!-- <mat-form-field appearance="outline">
+            <mat-label>OrderNo</mat-label>
+            <input formControlName="orderNo" matInput placeholder="OrderNo">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>BuyerName</mat-label>
+            <input formControlName="buyerName" matInput placeholder="BuyerName">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Total Price</mat-label>
+            <input formControlName="totalPrice" matInput type="number" placeholder="Total Price">
+        </mat-form-field> -->
+
+        <div class="example-container">
+            <mat-form-field appearance="outline">
+                <mat-label>OrderNo</mat-label>
+                <input formControlName="orderNo" matInput placeholder="OrderNo">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>BuyerName</mat-label>
+                <input formControlName="buyerName" matInput placeholder="BuyerName">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Total Price</mat-label>
+                <input formControlName="totalPrice" matInput type="number" placeholder="Total Price">
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <button mat-raised-button color="accent" (click)="addBuyOrderDetails()">Add BuyOrder Detail</button>
+        </div>
+
+        <table class="table" formArrayName="buyOrderDetails">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Prices</th>
+                <th scope="col">Total</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of buyOrderDetails().controls; let i = index;" [formGroupName]="i">
+                <th scope="row">{{i+1}}</th>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select an option</mat-label>
+                        <mat-select disableRipple formControlName="productId">
+                            <mat-option *ngFor="let product of listProducts" [value]="product.id">
+                                {{product.productName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Amount</mat-label>
+                        <input formControlName="amount" matInput type="number" placeholder="Amount">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Prices</mat-label>
+                        <input formControlName="prices" matInput type="number" placeholder="Prices">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <input matInput type="number" placeholder="Total">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <button mat-icon-button color="primary">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="removeBuyOrderDetails(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        <!-- <div formArrayName="buyOrderDetails">
+            <div *ngFor="let item of buyOrderDetails().controls; let i = index" [formGroupName]="i">
+                <div class="example-container" style="margin-top: 10px">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select an option</mat-label>
+                        <mat-select disableRipple formControlName="productId">
+                            <mat-option *ngFor="let product of listProducts" [value]="product.id">
+                                {{product.productName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Amount</mat-label>
+                        <input formControlName="amount" matInput type="number" placeholder="Amount">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Prices</mat-label>
+                        <input formControlName="prices" matInput type="number" placeholder="Prices">
+                    </mat-form-field>
+                    <button mat-icon-button color="warn" (click)="removeBuyOrderDetails(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div> -->
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="actionBuyOrder()">{{actionBtn}}</button>
+</div>

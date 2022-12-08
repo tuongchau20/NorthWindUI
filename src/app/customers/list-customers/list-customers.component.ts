@@ -6,6 +6,7 @@ import {AfterViewInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { NotificationService } from 'src/app/notification.service';
 
 @Component({
   selector: 'app-list-customers',
@@ -19,7 +20,7 @@ export class ListCustomersComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private dialog: MatDialog, private service: SharedService) { }
+  constructor(private dialog: MatDialog, private service: SharedService,private notifyService: NotificationService) { }
 
   ngOnInit(): void {
     this.getAllCustomer();
@@ -67,10 +68,10 @@ export class ListCustomersComponent implements OnInit {
     if(confirm("Are you sure delete customer?")){
       this.service.deleteCustomers(id).subscribe(res => {
         if(res = true){
-          alert("Delete customer successfully!!");
+          this.notifyService.showSuccess("Create customer successfully!!", "Succcess");
           this.getAllCustomer();
         }else{
-          alert("Delete customer failed!!");
+          this.notifyService.showError("Create customer failed!!", "Error");
         }
       })
     }
