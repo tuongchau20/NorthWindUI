@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject,tap } from 'rxjs';
 import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -8,6 +8,11 @@ import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 export class SharedService {
 
   readonly APIUrl = 'http://localhost:5177/api';
+  private _refreshData = new Subject<void>();
+  get RefreshedData(){
+    return this._refreshData;
+  }
+  
   constructor(private http: HttpClient) { }
   getAllProducts(): Observable<any[]> {
     return this.http.get<any>(this.APIUrl+'/products');
@@ -44,9 +49,17 @@ export class SharedService {
   getBuyOrderById(val: any) {
     return this.http.get<any>(this.APIUrl+'/BuyOrder/' + val);
   }
+  // createBuyOrders(val: any) {
+  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  //   return this.http.post(this.APIUrl+'/BuyOrder', val, httpOptions);
+  // }  
   createBuyOrders(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.post(this.APIUrl+'/BuyOrder', val, httpOptions);
+    return this.http.post(this.APIUrl+'/BuyOrder', val, httpOptions).pipe(
+      tap(() =>{
+        this._refreshData.next();
+      })
+    );
   }
   updateBuyOrders(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };

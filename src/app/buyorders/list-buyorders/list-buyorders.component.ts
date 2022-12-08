@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SharedService } from 'src/app/shared.service';
 import {AfterViewInit, ViewChild} from '@angular/core';
@@ -7,23 +7,39 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { NotificationService } from 'src/app/notification.service';
 import { CreateEditBuyordersComponent } from '../create-edit-buyorders/create-edit-buyorders.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-buyorders',
   templateUrl: './list-buyorders.component.html',
   styleUrls: ['./list-buyorders.component.css']
 })
-export class ListBuyordersComponent implements OnInit {
+export class ListBuyordersComponent implements OnInit,DoCheck {
   displayedColumns: string[] = ['id','orderNo', 'buyerName', 'totalPrice','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  isListing=true;
 
-  constructor(private dialog: MatDialog, private service: SharedService,private notifyService: NotificationService) { }
+  constructor(private dialog: MatDialog, private service: SharedService,private notifyService: NotificationService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllBuyOrder();
+    this.service.RefreshedData.subscribe(data =>{
+      this.getAllBuyOrder();
+    })
+  }
+  EditBuyOrder(id: any) {
+    this.router.navigate(['buyorders/edit/'+id]);
+  }
+  ngDoCheck(): void {
+    let currentUrl = this.router.url;
+    if(currentUrl=='/buyorders'){
+      this.isListing = true;
+    }else{
+      this.isListing = false;
+    }
   }
   openDialog() {
     this.dialog.open(CreateEditBuyordersComponent, {

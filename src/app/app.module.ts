@@ -27,6 +27,8 @@ import { ListBuyordersComponent } from './buyorders/list-buyorders/list-buyorder
 import { CreateEditBuyordersComponent } from './buyorders/create-edit-buyorders/create-edit-buyorders.component';
 import {MatSelectModule} from '@angular/material/select';
 import { ViewDetailBuyordersComponent } from './buyorders/view-detail-buyorders/view-detail-buyorders.component';
+import { HandleBuyordersComponent } from './buyorders/handle-buyorders/handle-buyorders.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { ViewDetailBuyordersComponent } from './buyorders/view-detail-buyorders/
     BuyordersComponent,
     ListBuyordersComponent,
     CreateEditBuyordersComponent,
-    ViewDetailBuyordersComponent
+    ViewDetailBuyordersComponent,
+    HandleBuyordersComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { ViewDetailBuyordersComponent } from './buyorders/view-detail-buyorders/
       closeButton: true,
       progressBar: true,
     }),
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
