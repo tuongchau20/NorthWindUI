@@ -23,15 +23,15 @@ export class CreateEditCustomersComponent implements OnInit {
       this.customerForm = this.formBuilder.group({
         id: this.editData.id,
         customerName: [this.editData.customerName, Validators.required],
-        email: [this.editData.email, Validators.required],
-        phone: [this.editData.phone, Validators.required],
+        email: [this.editData.email, [Validators.required,Validators.email]],
+        phone: [this.editData.phone, [Validators.required, Validators.pattern("[0-9]{10}")]],
         address: [this.editData.address, Validators.required],
       })
     }else{
       this.customerForm = this.formBuilder.group({
         customerName: ['', Validators.required],
-        email: ['', Validators.required],
-        phone: ['', Validators.required],
+        email: ['', [Validators.required,Validators.email]],
+        phone: ['', [Validators.required, Validators.pattern("[0-9]{10}")]],
         address: ['', Validators.required],
       })
     }

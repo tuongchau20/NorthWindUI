@@ -1,8 +1,8 @@
 @import '~ngx-toastr/toastr.css';
-.example-container {
+/* .example-container {
     height: 500px;
     overflow: auto;
-}
+} */
 .container{
     max-width: 1200px;
     margin: 0 auto;
@@ -18,5 +18,6 @@ table {
 
 td,
 th {
-    width: 25%;
+    width: 22%;
+    height: 70px;
 }

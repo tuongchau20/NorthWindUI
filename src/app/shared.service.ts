@@ -61,9 +61,17 @@ export class SharedService {
       })
     );
   }
+  // updateBuyOrders(val: any) {
+  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  //   return this.http.put(this.APIUrl+'/BuyOrder', val, httpOptions);
+  // }
   updateBuyOrders(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put(this.APIUrl+'/BuyOrder', val, httpOptions);
+    return this.http.put(this.APIUrl+'/BuyOrder', val, httpOptions).pipe(
+      tap(() =>{
+        this._refreshData.next();
+      })
+    );
   }
   updateBuyOrdersDetail(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
