@@ -14,38 +14,41 @@ export class SharedService {
   }
   
   constructor(private http: HttpClient) { }
-  getAllProducts(): Observable<any[]> {
+  getAllProducts() {
     return this.http.get<any>(this.APIUrl+'/products');
   }
   createProducts(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.post(this.APIUrl+'/products', val, httpOptions);
+    return this.http.post<any>(this.APIUrl+'/products', val, httpOptions);
   }
   updateProducts(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put(this.APIUrl+'/products', val, httpOptions);
+    return this.http.put<any>(this.APIUrl+'/products', val, httpOptions);
   }
   deleteProducts(val: any){
-    return this.http.delete(this.APIUrl+'/products/'+ val);
+    return this.http.delete<any>(this.APIUrl+'/products/'+ val);
   }
   
-  getAllCustomers(): Observable<any[]> {
+  getAllCustomers() {
     return this.http.get<any>(this.APIUrl+'/customers');
   }
   createCustomers(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.post(this.APIUrl+'/customers', val, httpOptions);
+    return this.http.post<any>(this.APIUrl+'/customers', val, httpOptions);
   }
   updateCustomers(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put(this.APIUrl+'/customers', val, httpOptions);
+    return this.http.put<any>(this.APIUrl+'/customers', val, httpOptions);
   }
   deleteCustomers(val: any){
-    return this.http.delete(this.APIUrl+'/customers/'+ val);
+    return this.http.delete<any>(this.APIUrl+'/customers/'+ val);
   }
-  getAllBuyOrders(): Observable<any[]> {
-    return this.http.get<any>(this.APIUrl+'/BuyOrder');
+  getAllBuyOrders(PageNumber: any, PageSize: any){
+    return this.http.get<any>(this.APIUrl+'/BuyOrder?PageNumber=' + PageNumber + '&PageSize=' + PageSize);
   }
+  // getAllBuyOrders(): Observable<any[]> {
+  //   return this.http.get<any>(this.APIUrl+'/BuyOrder');
+  // }
   getBuyOrderById(val: any) {
     return this.http.get<any>(this.APIUrl+'/BuyOrder/' + val);
   }
@@ -79,5 +82,36 @@ export class SharedService {
   }
   deleteBuyOrders(val: any){
     return this.http.delete(this.APIUrl+'/BuyOrder/'+ val);
+  }
+
+
+  getAllOrders(): Observable<any[]> {
+    return this.http.get<any>(this.APIUrl+'/Order');
+  }
+  getOrderById(val: any) {
+    return this.http.get<any>(this.APIUrl+'/Order/' + val);
+  }
+  createOrders(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.APIUrl+'/Order', val, httpOptions).pipe(
+      tap(() =>{
+        this._refreshData.next();
+      })
+    );
+  }
+  updateOrders(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put(this.APIUrl+'/Order', val, httpOptions).pipe(
+      tap(() =>{
+        this._refreshData.next();
+      })
+    );
+  }
+  updateOrdersDetail(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put(this.APIUrl+'/OrderDetail', val, httpOptions);
+  }
+  deleteOrders(val: any){
+    return this.http.delete(this.APIUrl+'/Order/'+ val);
   }
 }

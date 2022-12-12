@@ -37,9 +37,11 @@ export class ListCustomersComponent implements OnInit {
   getAllCustomer(){
     this.service.getAllCustomers().subscribe({
       next: (data) => {
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        if(data.status ==200){
+          this.dataSource = new MatTableDataSource(data.data);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
       },
       error: (err) => {
         alert("Error");
@@ -67,7 +69,7 @@ export class ListCustomersComponent implements OnInit {
   deleteCustomer(id: any){
     if(confirm("Are you sure delete customer?")){
       this.service.deleteCustomers(id).subscribe(res => {
-        if(res = true){
+        if(res.status = 200){
           this.notifyService.showSuccess("Create customer successfully!!", "Succcess");
           this.getAllCustomer();
         }else{

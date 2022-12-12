@@ -46,7 +46,7 @@ export class CreateEditCustomersComponent implements OnInit {
   addCustomer(){
     if(this.customerForm.valid){
       this.service.createCustomers(this.customerForm.value).subscribe(res => {
-        if(res == true){
+        if(res.status == 200){
           this.notifyService.showSuccess("Create customer successfully!!", "Succcess");
           this.customerForm.reset();
           this.matDialogRef.close('save');
@@ -59,7 +59,7 @@ export class CreateEditCustomersComponent implements OnInit {
   updateCustomer(){
     if(this.customerForm.valid){
       this.service.updateCustomers(this.customerForm.value).subscribe(res => {
-        if(res == true){
+        if(res.status == 200){
           this.notifyService.showSuccess("Update customer successfully!!", "Succcess");
           this.customerForm.reset();
           this.matDialogRef.close('update');

@@ -62,20 +62,8 @@ export class CreateEditProductsComponent implements OnInit {
 
   addProduct(){
     if(this.productForm.valid){
-      // this.service.createProducts(this.productForm.value).subscribe({
-      //   next: (res) => {
-      //     if(res == true){
-      //       this.notifyService.showSuccess("Create product successfully!!", "Succcess");
-      //     }else{
-      //       this.notifyService.showError("Create product failed!!", "Error");
-      //     }
-      //   }, 
-      //   error:()=> {
-      //     this.notifyService.showError("Create product failed!!", "Error");
-      //   }
-      // })
       this.service.createProducts(this.productForm.value).subscribe(res => {
-        if(res == true){
+        if(res.status == 200){
           this.notifyService.showSuccess("Create product successfully!!", "Succcess");
           this.productForm.reset();
           this.matDialogRef.close('save');
@@ -88,7 +76,7 @@ export class CreateEditProductsComponent implements OnInit {
   updateProduct(){
     if(this.productForm.valid){
       this.service.updateProducts(this.productForm.value).subscribe(res => {
-        if(res == true){
+        if(res.status == 200){
           this.notifyService.showSuccess("Update product successfully!!", "Succcess");
           this.productForm.reset();
           this.matDialogRef.close('update');

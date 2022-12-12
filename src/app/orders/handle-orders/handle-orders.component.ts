@@ -6,73 +6,68 @@ import { NotificationService } from 'src/app/notification.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-handle-buyorders',
-  templateUrl: './handle-buyorders.component.html',
-  styleUrls: ['./handle-buyorders.component.css']
+  selector: 'app-handle-orders',
+  templateUrl: './handle-orders.component.html',
+  styleUrls: ['./handle-orders.component.css']
 })
-export class HandleBuyordersComponent implements OnInit {
-
+export class HandleOrdersComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,private notifyService: NotificationService,private formBuilder: FormBuilder, private service: SharedService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllProduct();
-    this.editBuyOrderId = this.route.snapshot.params['id'];
-    if(this.editBuyOrderId != null){
-      this.actionHeader = "BuyOrder Update Form";
+    this.getAllCustomer();
+    this.editOrderId = this.route.snapshot.params['id'];
+    if(this.editOrderId != null){
+      this.actionHeader = "Order Update Form";
       this.actionBtn = "Update";
-      this.service.getBuyOrderById(this.editBuyOrderId).subscribe(item=>{
+      this.service.getOrderById(this.editOrderId).subscribe(item=>{
         this.editData = item;
-        
-        if(this.editData.buyOrderDetails != null){
-          for(let item of this.editData.buyOrderDetails){
-            this.EditBuyOrderDetails(item);
+        if(this.editData.orderDetails != null){
+          for(let item of this.editData.orderDetails){
+            this.EditOrderDetails(item);
           }
         }
-        this.buyorderForm.setValue({
+        this.orderForm.setValue({
           id: this.editData.id,
           orderNo: this.editData.orderNo,
-          buyerName: this.editData.buyerName, 
+          customerId: this.editData.customerId, 
           totalPrice: this.editData.totalPrice,
-          buyOrderDetails: this.editData.buyOrderDetails
+          orderDetails: this.editData.orderDetails
         })
       })
     }
-    
   }
-  formBuyOrderDetails !: FormArray<any>;
+
+  formOrderDetails !: FormArray<any>;
   listProducts: any;
+  listCustomers: any;
   saveResponse: any;
   editData: any;
-  editBuyOrderId: any;
+  editOrderId: any;
   actionBtn: string = "Save";
-  actionHeader: string = "BuyOrder Create Form";
+  actionHeader: string = "Order Create Form";
   mymodel: any;
 
-  valuechange(newValue:any) {
-    this.mymodel = newValue;
-    console.log(newValue)
-  }
-
-  buyorderForm = this.formBuilder.group({
+  orderForm = this.formBuilder.group({
     id: 0,
     orderNo: this.formBuilder.control('', Validators.required),
-    buyerName: this.formBuilder.control('', Validators.required),
+    customerId: this.formBuilder.control('', Validators.required),
     totalPrice: this.formBuilder.control('', Validators.required),
-    buyOrderDetails: this.formBuilder.array([])
+    orderDetails: this.formBuilder.array([])
   })
 
   redirectToList(){
-    this.router.navigate(['buyorders']);
+    this.router.navigate(['orders']);
   }
-  EditBuyOrderDetails(item : any){
-    this.formBuyOrderDetails = this.buyorderForm.get("buyOrderDetails") as FormArray;
-    this.formBuyOrderDetails.push(this.GenerateEditRow(item));
+  EditOrderDetails(item : any){
+    this.formOrderDetails = this.orderForm.get("orderDetails") as FormArray;
+    this.formOrderDetails.push(this.GenerateEditRow(item));
   }
   GenerateEditRow(item: any){
     return this.formBuilder.group({
       id: this.formBuilder.control(item.id),
-      buyOrderId: this.formBuilder.control(item.buyOrderId),
+      orderId: this.formBuilder.control(item.buyOrderId),
       productId: this.formBuilder.control(item.productId, Validators.required),
       amount: this.formBuilder.control(item.amount, Validators.required),
       prices: this.formBuilder.control(item.prices, Validators.required),
@@ -82,9 +77,9 @@ export class HandleBuyordersComponent implements OnInit {
       modifiedBy: this.formBuilder.control(item.modifiedBy),
     })
   }
-  AddBuyOrderDetails(){
-    this.formBuyOrderDetails = this.buyorderForm.get("buyOrderDetails") as FormArray;
-    this.formBuyOrderDetails.push(this.GenerateRow());
+  AddOrderDetails(){
+    this.formOrderDetails = this.orderForm.get("orderDetails") as FormArray;
+    this.formOrderDetails.push(this.GenerateRow());
   }
   GenerateRow(){
     return this.formBuilder.group({
@@ -94,50 +89,46 @@ export class HandleBuyordersComponent implements OnInit {
       prices: this.formBuilder.control('',Validators.required),
     })
   }
-  get buyOrderDetails(){
-    return this.buyorderForm.get('buyOrderDetails') as FormArray;
+  get orderDetails(){
+    return this.orderForm.get('orderDetails') as FormArray;
   }
-  saveBuyOrder(){
-    if(this.buyorderForm.valid){
+  saveOrder(){
+    if(this.orderForm.valid){
       if(!this.editData){
-        this.CreateBuyOrder();
+        this.CreateOrder();
       }else{
-        this.UpdateBuyOrder();
+        this.UpdateOrder();
       }
     }else{
       this.notifyService.showWarning("Please complete all information!", "Warning");
     }
   }
-  CreateBuyOrder(){
-    this.service.createBuyOrders(this.buyorderForm.value).subscribe(res => {
+  CreateOrder(){
+    this.service.createOrders(this.orderForm.value).subscribe(res => {
       if(res == true){
-        this.notifyService.showSuccess("Create buyorder successfully!!", "Succcess");
-        this.buyorderForm.reset();
+        this.notifyService.showSuccess("Create order successfully!!", "Succcess");
+        this.orderForm.reset();
         this.redirectToList();
       }else{
-        this.notifyService.showError("Create buyorder failed!!", "Error");
+        this.notifyService.showError("Create order failed!!", "Error");
       }
     })
   }
-  UpdateBuyOrder(){
-    this.service.updateBuyOrders(this.buyorderForm.value).subscribe(res => {
+  UpdateOrder(){
+    this.service.updateOrders(this.orderForm.value).subscribe(res => {
       if(res == true){
-        this.notifyService.showSuccess("Update buyorder successfully!!", "Succcess");
-        this.buyorderForm.reset();
+        this.notifyService.showSuccess("Update order successfully!!", "Succcess");
+        this.orderForm.reset();
         this.redirectToList();
       }else{
-        this.notifyService.showError("Update buyorder failed!!", "Error");
+        this.notifyService.showError("Update order failed!!", "Error");
       }
     })
   }
-  RemoveBuyOrderDetails(index: any){
+  RemoveOrderDetails(index: any){
     if (confirm('Do you want to remove this BuyOrder Detail?')) {
-      if(!this.editData){
-        this.formBuyOrderDetails = this.buyorderForm.get("buyOrderDetails") as FormArray;
-        this.formBuyOrderDetails.removeAt(index)
-      }else{
-        console.log("DRemove edit");
-      }
+      this.formOrderDetails = this.orderForm.get("orderDetails") as FormArray;
+      this.formOrderDetails.removeAt(index)
     }
   }
   getAllProduct(){
@@ -152,4 +143,17 @@ export class HandleBuyordersComponent implements OnInit {
       }
     })
   }
+  getAllCustomer(){
+    this.service.getAllCustomers().subscribe({
+      next: (data) => {
+        if(data.status == 200){
+          this.listCustomers = data.data;
+        }
+      },
+      error: (err) => {
+        alert("Error");
+      }
+    })
+  }
+
 }

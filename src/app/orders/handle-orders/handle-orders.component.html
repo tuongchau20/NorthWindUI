@@ -1,4 +1,4 @@
-<form class="example-form" [formGroup]="buyorderForm" (ngSubmit)="saveBuyOrder()">
+<form class="example-form" [formGroup]="orderForm" (ngSubmit)="saveOrder()">
     <h3 style="text-align: center; margin: 10px 0 50px 0">{{actionHeader}}</h3>
     <div class="example-container">
         <div style="margin-left: 50px;">
@@ -6,9 +6,15 @@
                 <mat-label>OrderNo</mat-label>
                 <input formControlName="orderNo" matInput placeholder="OrderNo">
             </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>BuyerName</mat-label>
-                <input formControlName="buyerName" matInput placeholder="BuyerName">
+            <!-- <mat-form-field appearance="outline">
+                <mat-label>Customer Name</mat-label>
+                <input formControlName="customerId" matInput placeholder="Customer Name">
+            </mat-form-field> -->
+            <mat-form-field appearance="fill">
+                <mat-label>Customer Name</mat-label>
+                <mat-select formControlName="customerId">
+                  <mat-option *ngFor="let item of listCustomers" [value]="item.id">{{item.customerName}}</mat-option>
+                </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Total Price</mat-label>
@@ -16,13 +22,13 @@
             </mat-form-field>
         </div>
 
-        <h5>BuyOrder Detail Info</h5>
+        <h5>Order Detail Info</h5>
         <div>
-            <table formArrayName="buyOrderDetails" style="margin: 2%; width: 96%;"
+            <table formArrayName="orderDetails" style="margin: 2%; width: 96%;"
                 class="mat-table cdk-table mat-elevation-z8 table-bordered">
                 <thead>
                     <tr>
-                        <td>STT</td>
+                        <td>Id</td>
                         <td>Product</td>
                         <td>Amount</td>
                         <td>Prices</td>
@@ -30,10 +36,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of buyOrderDetails.controls;let i=index" [formGroupName]="i">
+                    <tr *ngFor="let item of orderDetails.controls;let i=index" [formGroupName]="i">
                         <td>
-                            <!-- <input class="form-control" formControlName="id"> -->
-                            <label>{{i+1}}</label>
+                            <input class="form-control" formControlName="id">
                         </td>
                         <td>
                             <select class="form-control" formControlName="productId">
@@ -41,14 +46,14 @@
                             </select>
                         </td>
                         <td>
-                            <input class="form-control" formControlName="amount" type="number" (ngModelChange)="valuechange($event)" >
+                            <input class="form-control" formControlName="amount" type="number">
                         </td>
                         <td>
                             <input class="form-control" formControlName="prices" type="number">
 
                         </td>
                         <td>
-                            <a mat-raised-button color="accent" (click)="RemoveBuyOrderDetails(i)">Remove</a>
+                            <a mat-raised-button color="accent" (click)="RemoveOrderDetails(i)">Remove</a>
                         </td>
 
                     </tr>
@@ -56,7 +61,7 @@
                 <tfoot>
                 <tr>
                     <td colspan="5">
-                        <a mat-raised-button color="primary" (click)="AddBuyOrderDetails()">Add New (+)</a>
+                        <a mat-raised-button color="primary" (click)="AddOrderDetails()">Add New (+)</a>
                     </td>
                 </tr>
             </tfoot>
@@ -67,8 +72,6 @@
         <div class="example-button-row" style="padding: 1px">
             <button mat-raised-button color="warn" (click)="redirectToList()">Cancel</button> |
             <button mat-raised-button color="primary">{{actionBtn}}</button>
-            <!-- <a mat-raised-button color="warn" (click)="redirectToList()">Cancel</a> |
-            <a mat-raised-button color="primary">{{actionBtn}}</a> -->
         </div>
     </div>
 </form>

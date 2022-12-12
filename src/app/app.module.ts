@@ -26,9 +26,12 @@ import { BuyordersComponent } from './buyorders/buyorders.component';
 import { ListBuyordersComponent } from './buyorders/list-buyorders/list-buyorders.component';
 import { CreateEditBuyordersComponent } from './buyorders/create-edit-buyorders/create-edit-buyorders.component';
 import {MatSelectModule} from '@angular/material/select';
-import { ViewDetailBuyordersComponent } from './buyorders/view-detail-buyorders/view-detail-buyorders.component';
 import { HandleBuyordersComponent } from './buyorders/handle-buyorders/handle-buyorders.component';
 import {MatCardModule} from '@angular/material/card';
+import { OrdersComponent } from './orders/orders.component';
+import { ListOrdersComponent } from './orders/list-orders/list-orders.component';
+import { HandleOrdersComponent } from './orders/handle-orders/handle-orders.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -42,8 +45,10 @@ import {MatCardModule} from '@angular/material/card';
     BuyordersComponent,
     ListBuyordersComponent,
     CreateEditBuyordersComponent,
-    ViewDetailBuyordersComponent,
-    HandleBuyordersComponent
+    HandleBuyordersComponent,
+    OrdersComponent,
+    ListOrdersComponent,
+    HandleOrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +72,8 @@ import {MatCardModule} from '@angular/material/card';
       progressBar: true,
     }),
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
