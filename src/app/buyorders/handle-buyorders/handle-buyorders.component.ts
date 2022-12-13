@@ -38,7 +38,6 @@ export class HandleBuyordersComponent implements OnInit {
         })
       })
     }
-    
   }
   formBuyOrderDetails !: FormArray<any>;
   listProducts: any;
@@ -47,12 +46,6 @@ export class HandleBuyordersComponent implements OnInit {
   editBuyOrderId: any;
   actionBtn: string = "Save";
   actionHeader: string = "BuyOrder Create Form";
-  mymodel: any;
-
-  valuechange(newValue:any) {
-    this.mymodel = newValue;
-    console.log(newValue)
-  }
 
   buyorderForm = this.formBuilder.group({
     id: 0,
@@ -61,7 +54,15 @@ export class HandleBuyordersComponent implements OnInit {
     totalPrice: this.formBuilder.control('', Validators.required),
     buyOrderDetails: this.formBuilder.array([])
   })
-
+  onChange(index:number){
+    const subTotal = (this.formBuyOrderDetails.at(index).get('amount')?.value || 0) * (this.formBuyOrderDetails.at(index).get('prices')?.value || 0);
+    
+    const total = this.buyOrderDetails.value.reduce((acc: any,curr: any)=>{
+        acc += (curr.amount || 0) * (curr.prices || 0);
+        return acc;
+    }, 0);
+    this.buyorderForm.get('totalPrice')?.setValue(total);
+  }
   redirectToList(){
     this.router.navigate(['buyorders']);
   }
@@ -118,6 +119,7 @@ export class HandleBuyordersComponent implements OnInit {
         this.notifyService.showError("Create buyorder failed!!", "Error");
       }
     })
+    // console.log(this.buyorderForm.value);
   }
   UpdateBuyOrder(){
     this.service.updateBuyOrders(this.buyorderForm.value).subscribe(res => {
@@ -129,14 +131,27 @@ export class HandleBuyordersComponent implements OnInit {
         this.notifyService.showError("Update buyorder failed!!", "Error");
       }
     })
+    // console.log(this.buyorderForm.value);
   }
   RemoveBuyOrderDetails(index: any){
     if (confirm('Do you want to remove this BuyOrder Detail?')) {
       if(!this.editData){
         this.formBuyOrderDetails = this.buyorderForm.get("buyOrderDetails") as FormArray;
-        this.formBuyOrderDetails.removeAt(index)
+        this.formBuyOrderDetails.removeAt(index);
+        this.onChange(index);
       }else{
-        console.log("DRemove edit");
+        this.formBuyOrderDetails = this.buyorderForm.get("buyOrderDetails") as FormArray;
+        this.formBuyOrderDetails.removeAt(index);
+        this.onChange(index);
+        if(this.editData.buyOrderDetails[index]){
+          this.service.deleteBuyOrderById(this.editData.buyOrderDetails[index].id).subscribe(res =>{
+            if(res == true){
+              this.notifyService.showSuccess("Delete buyorder detail successfully!!", "Succcess");
+            }else{
+              this.notifyService.showError("Delete buyorder detail failed!!", "Error");
+            }
+          })
+        }
       }
     }
   }

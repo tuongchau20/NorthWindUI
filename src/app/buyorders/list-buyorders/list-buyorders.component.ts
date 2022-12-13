@@ -75,17 +75,16 @@ export class ListBuyordersComponent implements OnInit,DoCheck {
     })
   }
   onPrev(){
-    // console.log(this.currentPage);
-    
-    // if(this.currentPage > 1){
+    if(this.currentPage > 1){
       this.currentPage--;
       this.getAllBuyOrder();
-    //   this.btnPrevDisabled = false;
-    // }
+    }
   }
   onNext(){
+    if(this.currentPage < this.pageField.length){
       this.currentPage++;
       this.getAllBuyOrder();
+    }
   }
   onPageClick(i: any){
     this.currentPage = i+1;

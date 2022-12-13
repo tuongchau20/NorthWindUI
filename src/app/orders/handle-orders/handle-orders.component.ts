@@ -57,6 +57,16 @@ export class HandleOrdersComponent implements OnInit {
     orderDetails: this.formBuilder.array([])
   })
 
+  onChange(index:number){
+    const subTotal = this.formOrderDetails.at(index).get('amount')?.value * this.formOrderDetails.at(index).get('prices')?.value;
+    
+    const total = this.orderDetails.value.reduce((acc: any,curr: any)=>{
+        acc += (curr.amount || 0) * (curr.prices || 0);
+        return acc;
+    },0);
+    this.orderForm.get('totalPrice')?.setValue(total);
+  }
+
   redirectToList(){
     this.router.navigate(['orders']);
   }
@@ -127,8 +137,24 @@ export class HandleOrdersComponent implements OnInit {
   }
   RemoveOrderDetails(index: any){
     if (confirm('Do you want to remove this BuyOrder Detail?')) {
-      this.formOrderDetails = this.orderForm.get("orderDetails") as FormArray;
-      this.formOrderDetails.removeAt(index)
+      if(!this.editData){
+        this.formOrderDetails = this.orderForm.get("orderDetails") as FormArray;
+        this.formOrderDetails.removeAt(index);
+        this.onChange(index);
+      }else{
+        this.formOrderDetails = this.orderForm.get("orderDetails") as FormArray;
+        this.formOrderDetails.removeAt(index);
+        this.onChange(index);
+        if(this.editData.orderDetails[index]){
+          this.service.deleteOrderById(this.editData.orderDetails[index].id).subscribe(res =>{
+            if(res == true){
+              this.notifyService.showSuccess("Delete order detail successfully!!", "Succcess");
+            }else{
+              this.notifyService.showError("Delete order detail failed!!", "Error");
+            }
+          })
+        }
+      }
     }
   }
   getAllProduct(){
