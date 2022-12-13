@@ -70,10 +70,10 @@ export class ListCustomersComponent implements OnInit {
     if(confirm("Are you sure delete customer?")){
       this.service.deleteCustomers(id).subscribe(res => {
         if(res.status = 200){
-          this.notifyService.showSuccess("Create customer successfully!!", "Succcess");
+          this.notifyService.showSuccess("Delete customer successfully!!", "Succcess");
           this.getAllCustomer();
         }else{
-          this.notifyService.showError("Create customer failed!!", "Error");
+          this.notifyService.showError("Delete customer failed!!", "Error");
         }
       })
     }

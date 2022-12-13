@@ -55,7 +55,7 @@ export class HandleBuyordersComponent implements OnInit {
     buyOrderDetails: this.formBuilder.array([])
   })
   onChange(index:number){
-    const subTotal = (this.formBuyOrderDetails.at(index).get('amount')?.value || 0) * (this.formBuyOrderDetails.at(index).get('prices')?.value || 0);
+    // const subTotal = this.formBuyOrderDetails.at(index).get('amount')?.value * this.formBuyOrderDetails.at(index).get('prices')?.value;
     
     const total = this.buyOrderDetails.value.reduce((acc: any,curr: any)=>{
         acc += (curr.amount || 0) * (curr.prices || 0);
@@ -119,7 +119,6 @@ export class HandleBuyordersComponent implements OnInit {
         this.notifyService.showError("Create buyorder failed!!", "Error");
       }
     })
-    // console.log(this.buyorderForm.value);
   }
   UpdateBuyOrder(){
     this.service.updateBuyOrders(this.buyorderForm.value).subscribe(res => {

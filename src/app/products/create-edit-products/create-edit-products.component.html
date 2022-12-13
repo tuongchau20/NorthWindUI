@@ -4,18 +4,30 @@
         <mat-form-field appearance="outline">
             <mat-label>Product Code</mat-label>
             <input formControlName="productCode" matInput placeholder="Product Code">
+            <mat-error *ngIf="f['productCode'].hasError('required')">
+                Product Code is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Product Name</mat-label>
             <input formControlName="productName" matInput placeholder="Product Name">
+            <mat-error *ngIf="f['productName'].hasError('required')">
+                Product Name is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Amount</mat-label>
             <input formControlName="amount" matInput type="number" placeholder="Amount">
+            <mat-error *ngIf="f['amount'].hasError('required')">
+                Amount is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Product Owner</mat-label>
             <input formControlName="productOwner" matInput placeholder="Product Owner">
+            <mat-error *ngIf="f['productOwner'].hasError('required')">
+                Product Owner is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
     </form>
 </div>

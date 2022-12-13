@@ -58,7 +58,7 @@ export class HandleOrdersComponent implements OnInit {
   })
 
   onChange(index:number){
-    const subTotal = this.formOrderDetails.at(index).get('amount')?.value * this.formOrderDetails.at(index).get('prices')?.value;
+    // const subTotal = this.formOrderDetails.at(index).get('amount')?.value * this.formOrderDetails.at(index).get('prices')?.value;
     
     const total = this.orderDetails.value.reduce((acc: any,curr: any)=>{
         acc += (curr.amount || 0) * (curr.prices || 0);

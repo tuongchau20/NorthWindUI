@@ -1,8 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validator, Validators,AbstractControl } from '@angular/forms';
 import { SharedService } from 'src/app/shared.service';
 import { MatDialogRef,MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/notification.service';
+import {ErrorStateMatcher} from '@angular/material/core';
+import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-create-edit-products',
@@ -10,7 +19,7 @@ import { NotificationService } from 'src/app/notification.service';
   styleUrls: ['./create-edit-products.component.css']
 })
 export class CreateEditProductsComponent implements OnInit {
-
+  matcher = new MyErrorStateMatcher();
   productForm !: FormGroup;
   actionBtn: string = "Save";
   actionHeader: string = "Add Product";
@@ -48,9 +57,9 @@ export class CreateEditProductsComponent implements OnInit {
         productOwner: ['', Validators.required],
       })
     }
-    
-    console.log(this.editData);
-    
+  }
+  get f(): { [key: string]: AbstractControl } {
+    return this.productForm.controls;
   }
   actionProduct(){
     if(!this.editData){
