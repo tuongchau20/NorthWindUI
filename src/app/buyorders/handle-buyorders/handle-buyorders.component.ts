@@ -12,6 +12,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HandleBuyordersComponent implements OnInit {
 
+  formBuyOrderDetails !: FormArray<any>;
+  listProducts: any;
+  saveResponse: any;
+  editData: any;
+  editBuyOrderId: any;
+  actionBtn: string = "Save";
+  actionHeader: string = "BuyOrder Create Form";
 
   constructor(private route: ActivatedRoute,private notifyService: NotificationService,private formBuilder: FormBuilder, private service: SharedService, private router: Router) { }
 
@@ -39,13 +46,6 @@ export class HandleBuyordersComponent implements OnInit {
       })
     }
   }
-  formBuyOrderDetails !: FormArray<any>;
-  listProducts: any;
-  saveResponse: any;
-  editData: any;
-  editBuyOrderId: any;
-  actionBtn: string = "Save";
-  actionHeader: string = "BuyOrder Create Form";
 
   buyorderForm = this.formBuilder.group({
     id: 0,

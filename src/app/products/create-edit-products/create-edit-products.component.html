@@ -17,7 +17,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Amount</mat-label>
-            <input formControlName="amount" matInput type="number" placeholder="Amount">
+            <input formControlName="amount" matInput type="number" placeholder="Amount" min="0">
             <mat-error *ngIf="f['amount'].hasError('required')">
                 Amount is <strong>required</strong>
             </mat-error>

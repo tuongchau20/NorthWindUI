@@ -41,7 +41,7 @@ export class ListProductsComponent implements OnInit {
         if(data.status == 200){
           this.dataSource = new MatTableDataSource(data.data);
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+          // this.dataSource.paginator = this.paginator;
         }
       },
       error: (err) => {

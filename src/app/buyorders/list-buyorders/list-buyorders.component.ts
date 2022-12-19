@@ -22,7 +22,7 @@ export class ListBuyordersComponent implements OnInit,DoCheck {
   @ViewChild(MatSort) sort!: MatSort;
   isListing=true;
   currentPage = 1;
-  pageSize = 2;
+  pageSize = 3;
   totalPage = 0;
   pageField: any[] = [];
   btnPrevDisabled = false;

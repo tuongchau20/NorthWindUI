@@ -48,10 +48,10 @@
                             </select>
                         </td>
                         <td>
-                            <input class="form-control" formControlName="amount" type="number" (change)="onChange(i)">
+                            <input class="form-control" formControlName="amount" type="number" (change)="onChange(i)" min="0">
                         </td>
                         <td>
-                            <input class="form-control" formControlName="prices" type="number" (change)="onChange(i)">
+                            <input class="form-control" formControlName="prices" type="number" (change)="onChange(i)" min="0">
                         </td>
                         <td>
                             <label>{{item.value.amount * item.value.prices}}</label>

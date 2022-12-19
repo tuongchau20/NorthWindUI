@@ -46,16 +46,9 @@ export class SharedService {
   getAllBuyOrders(PageNumber: any, PageSize: any){
     return this.http.get<any>(this.APIUrl+'/BuyOrder?PageNumber=' + PageNumber + '&PageSize=' + PageSize);
   }
-  // getAllBuyOrders(): Observable<any[]> {
-  //   return this.http.get<any>(this.APIUrl+'/BuyOrder');
-  // }
   getBuyOrderById(val: any) {
     return this.http.get<any>(this.APIUrl+'/BuyOrder/' + val);
-  }
-  // createBuyOrders(val: any) {
-  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-  //   return this.http.post(this.APIUrl+'/BuyOrder', val, httpOptions);
-  // }  
+  } 
   createBuyOrders(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post<any>(this.APIUrl+'/BuyOrder', val, httpOptions).pipe(
@@ -64,10 +57,6 @@ export class SharedService {
       })
     );
   }
-  // updateBuyOrders(val: any) {
-  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-  //   return this.http.put<any>(this.APIUrl+'/BuyOrder', val, httpOptions);
-  // }
   updateBuyOrders(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.put<any>(this.APIUrl+'/BuyOrder', val, httpOptions).pipe(
