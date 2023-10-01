@@ -9,6 +9,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { HandleOrdersComponent } from './orders/handle-orders/handle-orders.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ShippersComponent } from './shippers/shippers.component';
+import { SuppliersComponent } from './suppliers/suppliers.component';
+import { EmployeesComponent } from './employees/employees.component';
 
 const routes: Routes = [
   {path: "products", component: ProductsComponent},
@@ -19,6 +21,8 @@ const routes: Routes = [
   ]},
   { path: "categories", component: CategoriesComponent},
   { path: "shippers", component: ShippersComponent},
+  { path: "suppliers", component: SuppliersComponent},
+  { path: "employees", component: EmployeesComponent},
 
 
   {path: "orders", component: OrdersComponent, children: [

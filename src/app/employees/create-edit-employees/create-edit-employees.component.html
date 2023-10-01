@@ -1,0 +1,22 @@
+<div class="container">
+    <h1 mat-dialog-title>{{ actionHeader }}</h1>
+    <div mat-dialog-content>
+      <form [formGroup]="employeeForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input formControlName="lastName" matInput placeholder="Last Name">
+          <mat-error *ngIf="f['lastName'].hasError('required')">Last Name is <strong>required</strong></mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input formControlName="firstName" matInput placeholder="First Name">
+          <mat-error *ngIf="f['firstName'].hasError('required')">First Name is <strong>required</strong></mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+    <div mat-dialog-action [align]="'end'">
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+      <button mat-raised-button color="primary" style="margin-left: 8px" (click)="actionEmployee()">{{ actionBtn }}</button>
+    </div>
+  </div>
+  

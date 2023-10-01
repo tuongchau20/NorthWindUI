@@ -6,6 +6,57 @@ import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SharedService {
+  updateEmployee(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put<any>(this.APIUrl + '/employees/' + val.id, val, httpOptions).pipe(
+      tap(() => {
+        this._refreshData.next();
+      })
+    );
+  }
+  createEmployee(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post<any>(this.APIUrl + '/employees', val, httpOptions).pipe(
+      tap(() => {
+        this._refreshData.next();
+      })
+    );
+  }
+  getAllEmployees() {
+    return this.http.get<any>(this.APIUrl+'/employees');
+  }
+  deleteEmployee(val: any) {
+    return this.http.delete<any>(this.APIUrl+'/employees/'+ val);
+
+  }
+  readonly APIUrl = 'https://localhost:7074/api';
+  private _refreshData = new Subject<void>();
+  
+  createSupplier(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post<any>(this.APIUrl + '/suppliers', val, httpOptions).pipe(
+      tap(() => {
+        this._refreshData.next();
+      })
+    );  }
+  updateSupplier(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put<any>(this.APIUrl + '/suppliers/' + val.id, val, httpOptions).pipe(
+      tap(() => {
+        this._refreshData.next();
+      })
+    );  }
+
+  get RefreshedData(){
+    return this._refreshData;
+  }
+  getAllSuppliers() {
+    return this.http.get<any>(this.APIUrl+'/suppliers');
+  }
+  deleteSupplier(val: any) {
+    return this.http.delete<any>(this.APIUrl+'/suppliers/'+ val);
+
+  }
   createShipper(val: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post<any>(this.APIUrl + '/shippers', val, httpOptions).pipe(
@@ -21,11 +72,7 @@ export class SharedService {
       })
     );  }
   
-  readonly APIUrl = 'https://localhost:7074/api';
-  private _refreshData = new Subject<void>();
-  get RefreshedData(){
-    return this._refreshData;
-  }
+  
   
   constructor(private http: HttpClient) { }
   getAllShippers() {
@@ -155,4 +202,5 @@ export class SharedService {
   deleteOrderById(val: any){
     return this.http.delete<any>(this.APIUrl+'/OrderDetail/'+ val);
   }
+  
 }
