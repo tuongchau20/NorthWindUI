@@ -30,11 +30,16 @@ export class CreateEditBuyordersComponent implements OnInit {
     if(this.editData){
       this.actionHeader = "Update BuyOrder";
       this.actionBtn = "Update";
+      if(this.editData.buyOrderDetails != null){
+        for(let i = 0;i<this.editData.buyOrderDetails.length;i++){
+          this.addBuyOrderDetails();
+        }
+      }
       this.buyorderForm = this.formBuilder.group({
         orderNo: [this.editData.orderNo, Validators.required],
         buyerName: [this.editData.buyerName, Validators.required],
         totalPrice: [this.editData.totalPrice, Validators.required],
-        buyOrderDetails: this.formBuilder.array([]),
+        buyOrderDetails: this.editData.buyOrderDetails,
       })
     }
     console.log(this.editData);
@@ -47,9 +52,9 @@ export class CreateEditBuyordersComponent implements OnInit {
 
   newBuyOrderDetails(): FormGroup {
     return this.formBuilder.group({
-      productId: ['', Validators.required],
-      amount: ['', Validators.required],
-      prices: ['', Validators.required],
+      productId: [this.buyorderForm.value.productId, Validators.required],
+      amount: [this.buyorderForm.value.amount, Validators.required],
+      prices: [this.buyorderForm.value.prices, Validators.required],
     })
   }
   addBuyOrderDetails() {

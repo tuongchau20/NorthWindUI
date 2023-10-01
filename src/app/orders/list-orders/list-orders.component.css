@@ -1,0 +1,28 @@
+@import '~ngx-toastr/toastr.css';
+.example-container {
+    height: 500px;
+    overflow: auto;
+  }
+  .mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+}
+/* .container{
+    max-width: 1200px;
+    margin: 0 auto;
+} */
+table {
+    width: 100%;
+}
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {
+    width: 22%;
+    height: 70px;
+}

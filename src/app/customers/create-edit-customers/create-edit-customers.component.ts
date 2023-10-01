@@ -1,8 +1,17 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validator, Validators,AbstractControl } from '@angular/forms';
 import { SharedService } from 'src/app/shared.service';
 import { MatDialogRef,MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/notification.service';
+import {ErrorStateMatcher} from '@angular/material/core';
+import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-create-edit-customers',
@@ -10,7 +19,7 @@ import { NotificationService } from 'src/app/notification.service';
   styleUrls: ['./create-edit-customers.component.css']
 })
 export class CreateEditCustomersComponent implements OnInit {
-
+  matcher = new MyErrorStateMatcher();
   customerForm !: FormGroup;
   actionBtn: string = "Save";
   actionHeader: string = "Add Customer";
@@ -23,18 +32,25 @@ export class CreateEditCustomersComponent implements OnInit {
       this.customerForm = this.formBuilder.group({
         id: this.editData.id,
         customerName: [this.editData.customerName, Validators.required],
-        email: [this.editData.email, Validators.required],
-        phone: [this.editData.phone, Validators.required],
+        contactName: [this.editData.contactName, Validators.required],
         address: [this.editData.address, Validators.required],
+        city: [this.editData.city, Validators.required],
+        postalCode: [this.editData.postalCode, Validators.required],
+        country: [this.editData.country, Validators.required],
       })
     }else{
       this.customerForm = this.formBuilder.group({
         customerName: ['', Validators.required],
-        email: ['', Validators.required],
-        phone: ['', Validators.required],
+        contactName: ['', Validators.required],
         address: ['', Validators.required],
+        city: ['', Validators.required],
+        postalCode: ['', Validators.required],
+        country: ['', Validators.required],
       })
     }
+  }
+  get f(): { [key: string]: AbstractControl } {
+    return this.customerForm.controls;
   }
   actionCustomer(){
     if(!this.editData){
@@ -46,7 +62,7 @@ export class CreateEditCustomersComponent implements OnInit {
   addCustomer(){
     if(this.customerForm.valid){
       this.service.createCustomers(this.customerForm.value).subscribe(res => {
-        if(res == true){
+        if(res.status == 200){
           this.notifyService.showSuccess("Create customer successfully!!", "Succcess");
           this.customerForm.reset();
           this.matDialogRef.close('save');
@@ -59,7 +75,7 @@ export class CreateEditCustomersComponent implements OnInit {
   updateCustomer(){
     if(this.customerForm.valid){
       this.service.updateCustomers(this.customerForm.value).subscribe(res => {
-        if(res == true){
+        if(res.status == 200){
           this.notifyService.showSuccess("Update customer successfully!!", "Succcess");
           this.customerForm.reset();
           this.matDialogRef.close('update');

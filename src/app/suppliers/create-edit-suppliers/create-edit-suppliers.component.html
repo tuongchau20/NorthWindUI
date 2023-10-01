@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>{{actionHeader}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="supplierForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Supplier Name</mat-label>
+            <input formControlName="supplierName" matInput placeholder="Supplier Name">
+            <mat-error *ngIf="f['supplierName'].hasError('required')">
+                Supplier Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Contact Name</mat-label>
+            <input formControlName="contactName" matInput placeholder="Contact Name">
+            <mat-error *ngIf="f['contactName'].hasError('required')">
+                Contact Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <input formControlName="address" matInput placeholder="Address">
+            <mat-error *ngIf="f['address'].hasError('required')">
+                Address is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input formControlName="city" matInput placeholder="City">
+            <mat-error *ngIf="f['city'].hasError('required')">
+                City is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Postal Code</mat-label>
+            <input formControlName="postalCode" matInput placeholder="Postal Code">
+            <mat-error *ngIf="f['postalCode'].hasError('required')">
+                Postal Code is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <input formControlName="country" matInput placeholder="Country">
+            <mat-error *ngIf="f['country'].hasError('required')">
+                Country is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input formControlName="phone" matInput placeholder="Phone">
+            <mat-error *ngIf="f['phone'].hasError('required')">
+                Phone is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="actionSupplier()">{{actionBtn}}</button>
+</div>

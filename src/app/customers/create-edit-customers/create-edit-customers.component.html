@@ -4,18 +4,44 @@
         <mat-form-field appearance="outline">
             <mat-label>Customer Name</mat-label>
             <input formControlName="customerName" matInput placeholder="Customer Name">
+            <mat-error *ngIf="f['customerName'].hasError('required')">
+                Customer Name is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input formControlName="email" type="email" matInput placeholder="Email">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Phone</mat-label>
-            <input formControlName="phone" matInput placeholder="Phone">
+            <mat-label>Contact Name</mat-label>
+            <input formControlName="contactName" matInput placeholder="Contact Name">
+            <mat-error *ngIf="f['contactName'].hasError('required')">
+                Contact Name is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Address</mat-label>
             <input formControlName="address" matInput placeholder="Address">
+            <mat-error *ngIf="f['address'].hasError('required')">
+                Address is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input formControlName="city" matInput placeholder="City">
+            <mat-error *ngIf="f['city'].hasError('required')">
+                City is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Postal Code</mat-label>
+            <input formControlName="postalCode" matInput placeholder="Postal Code">
+            <mat-error *ngIf="f['postalCode'].hasError('required')">
+                Postal Code is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <input formControlName="country" matInput placeholder="Country">
+            <mat-error *ngIf="f['country'].hasError('required')">
+                Country is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
     </form>
 </div>

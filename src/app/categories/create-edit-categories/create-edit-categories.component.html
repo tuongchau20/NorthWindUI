@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>{{actionHeader}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="categoryForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Category Name</mat-label>
+            <input formControlName="categoryName" matInput placeholder="Category Name">
+            <mat-error *ngIf="f['categoryName'].hasError('required')">
+                Category Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input formControlName="description" matInput placeholder="Description">
+            <mat-error *ngIf="f['description'].hasError('required')">
+                Description is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="actionCategory()">{{actionBtn}}</button>
+</div>

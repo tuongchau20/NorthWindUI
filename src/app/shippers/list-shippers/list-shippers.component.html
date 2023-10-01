@@ -1,0 +1,53 @@
+<div class="container">
+    <div style="margin-top: 10px">
+      <button mat-raised-button color="accent" (click)="openDialog()">Add shipper</button>
+    </div>
+    <div style="margin-top: 10px">
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Shipper Name" #input>
+      </mat-form-field>
+  
+      <div class="example-container mat-elevation-z8" tabindex="0">
+        <table mat-table [dataSource]="dataSource" matSort>
+  
+          <ng-container matColumnDef="shipperId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Shipper ID </th>
+            <td mat-cell *matCellDef="let row"> {{row.shipperId}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="shipperName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Shipper Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.shipperName}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+            <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="editShipper(row.shipperId)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteShipper(row.shipperId)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of shippers"></mat-paginator>
+      </div>
+    </div>
+  </div>
+  

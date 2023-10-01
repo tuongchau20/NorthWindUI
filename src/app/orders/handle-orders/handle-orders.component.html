@@ -1,0 +1,81 @@
+<form class="example-form" [formGroup]="orderForm" (ngSubmit)="saveOrder()">
+    <h3 style="text-align: center; margin: 10px 0 50px 0">{{actionHeader}}</h3>
+    <div class="example-container">
+        <div style="margin-left: 50px;">
+            <mat-form-field appearance="outline">
+                <mat-label>OrderNo</mat-label>
+                <input formControlName="orderNo" matInput placeholder="OrderNo">
+            </mat-form-field>
+            <!-- <mat-form-field appearance="outline">
+                <mat-label>Customer Name</mat-label>
+                <input formControlName="customerId" matInput placeholder="Customer Name">
+            </mat-form-field> -->
+            <mat-form-field appearance="fill">
+                <mat-label>Customer Name</mat-label>
+                <mat-select formControlName="customerId">
+                  <mat-option *ngFor="let item of listCustomers" [value]="item.id">{{item.customerName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Total Price</mat-label>
+                <input formControlName="totalPrice" matInput type="number" placeholder="Total Price">
+            </mat-form-field>
+        </div>
+
+        <h5>Order Detail Info</h5>
+        <div>
+            <table formArrayName="orderDetails" style="margin: 2%; width: 96%;"
+                class="mat-table cdk-table mat-elevation-z8 table-bordered">
+                <thead>
+                    <tr>
+                        <td>STT</td>
+                        <td>Product</td>
+                        <td>Amount</td>
+                        <td>Prices</td>
+                        <td>Subtotal</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of orderDetails.controls;let i=index" [formGroupName]="i">
+                        <td>
+                            <!-- <input class="form-control" formControlName="id"> -->
+                            <label>{{i+1}}</label>
+                        </td>
+                        <td>
+                            <select class="form-control" formControlName="productId">
+                                <option *ngFor="let item of listProducts" [value]="item.id">{{item.productName}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="form-control" formControlName="amount" type="number" (change)="onChange(i)" min="0">
+                        </td>
+                        <td>
+                            <input class="form-control" formControlName="prices" type="number" (change)="onChange(i)" min="0">
+                        </td>
+                        <td>
+                            <label>{{item.value.amount * item.value.prices}}</label>
+                        </td>
+                        <td>
+                            <a mat-raised-button color="accent" (click)="RemoveOrderDetails(i)">Remove</a>
+                        </td>
+
+                    </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <a mat-raised-button color="primary" (click)="AddOrderDetails()">Add New (+)</a>
+                    </td>
+                </tr>
+            </tfoot>
+
+            </table>
+        </div>
+
+        <div class="example-button-row" style="padding: 1px">
+            <button mat-raised-button color="warn" (click)="redirectToList()">Cancel</button> |
+            <button mat-raised-button color="primary">{{actionBtn}}</button>
+        </div>
+    </div>
+</form>
