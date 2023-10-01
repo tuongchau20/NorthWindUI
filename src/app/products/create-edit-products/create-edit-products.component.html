@@ -1,37 +1,36 @@
-<h1 mat-dialog-title>{{actionHeader}}</h1>
+<h1 mat-dialog-title>{{ actionHeader }}</h1>
 <div mat-dialog-content>
-    <form [formGroup]="productForm">
-        <mat-form-field appearance="outline">
-            <mat-label>Product Code</mat-label>
-            <input formControlName="productCode" matInput placeholder="Product Code">
-            <mat-error *ngIf="f['productCode'].hasError('required')">
-                Product Code is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Product Name</mat-label>
-            <input formControlName="productName" matInput placeholder="Product Name">
-            <mat-error *ngIf="f['productName'].hasError('required')">
-                Product Name is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Amount</mat-label>
-            <input formControlName="amount" matInput type="number" placeholder="Amount" min="0">
-            <mat-error *ngIf="f['amount'].hasError('required')">
-                Amount is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Product Owner</mat-label>
-            <input formControlName="productOwner" matInput placeholder="Product Owner">
-            <mat-error *ngIf="f['productOwner'].hasError('required')">
-                Product Owner is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-    </form>
+  <form [formGroup]="productForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Product Name</mat-label>
+      <input formControlName="productName" matInput placeholder="Product Name" />
+      <mat-error *ngIf="f['productName'].hasError('required')">
+        Product Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Supplier ID</mat-label>
+      <input formControlName="supplierId" matInput type="number" placeholder="Supplier ID" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Category ID</mat-label>
+      <input formControlName="categoryId" matInput type="number" placeholder="Category ID" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Unit</mat-label>
+      <input formControlName="unit" matInput placeholder="Unit" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Price</mat-label>
+      <input formControlName="price" matInput type="number" placeholder="Price" />
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-action [align]="'end'">
-    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
-    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="actionProduct()">{{actionBtn}}</button>
+  <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+  <button mat-raised-button color="primary" style="margin-left: 8px" (click)="actionProduct()">{{ actionBtn }}</button>
 </div>

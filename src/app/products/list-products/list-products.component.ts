@@ -14,7 +14,7 @@ import { NotificationService } from 'src/app/notification.service';
   styleUrls: ['./list-products.component.css']
 })
 export class ListProductsComponent implements OnInit {
-  displayedColumns: string[] = ['id','productCode', 'productName', 'amount', 'productOwner','action'];
+  displayedColumns: string[] = ['productId','productName', 'supplierId', 'categoryId', 'unit','price','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -38,11 +38,10 @@ export class ListProductsComponent implements OnInit {
   getAllProduct(){
     this.service.getAllProducts().subscribe({
       next: (data) => {
-        if(data.status == 200){
-          this.dataSource = new MatTableDataSource(data.data);
-          this.dataSource.sort = this.sort;
-          // this.dataSource.paginator = this.paginator;
-        }
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
       },
       error: (err) => {
         alert("Error");

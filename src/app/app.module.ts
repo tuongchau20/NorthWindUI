@@ -32,6 +32,12 @@ import { OrdersComponent } from './orders/orders.component';
 import { ListOrdersComponent } from './orders/list-orders/list-orders.component';
 import { HandleOrdersComponent } from './orders/handle-orders/handle-orders.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { CategoriesComponent } from './categories/categories.component';
+import { ListCategoriesComponent } from './categories/list-categories/list-categories.component';
+import { CreateEditCategoriesComponent } from './categories/create-edit-categories/create-edit-categories.component';
+import { ShippersComponent } from './shippers/shippers.component';
+import { ListShippersComponent } from './shippers/list-shippers/list-shippers.component';
+import { CreateEditShippersComponent } from './shippers/create-edit-shippers/create-edit-shippers.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +54,13 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     HandleBuyordersComponent,
     OrdersComponent,
     ListOrdersComponent,
-    HandleOrdersComponent
+    HandleOrdersComponent,
+    CategoriesComponent,
+    ListCategoriesComponent,
+    CreateEditCategoriesComponent,
+    ShippersComponent,
+    ListShippersComponent,
+    CreateEditShippersComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,8 @@ import { BuyordersComponent } from './buyorders/buyorders.component';
 import { HandleBuyordersComponent } from './buyorders/handle-buyorders/handle-buyorders.component';
 import { OrdersComponent } from './orders/orders.component';
 import { HandleOrdersComponent } from './orders/handle-orders/handle-orders.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { ShippersComponent } from './shippers/shippers.component';
 
 const routes: Routes = [
   {path: "products", component: ProductsComponent},
@@ -15,9 +17,13 @@ const routes: Routes = [
     {path: "create", component: HandleBuyordersComponent},
     {path: "edit/:id", component: HandleBuyordersComponent}
   ]},
+  { path: "categories", component: CategoriesComponent},
+  { path: "shippers", component: ShippersComponent},
+
+
   {path: "orders", component: OrdersComponent, children: [
     {path: "create", component: HandleOrdersComponent},
-    {path: "edit/:id", component: HandleOrdersComponent}
+    {path: "edit/:id", component: HandleOrdersComponent},
   ]},
 ]
 

@@ -9,23 +9,10 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input formControlName="email" type="email" matInput placeholder="Email" [errorStateMatcher]="matcher">
-            <mat-error *ngIf="f['email'].hasError('email') && !f['email'].hasError('required')">
-                Please enter a valid email address
-            </mat-error>
-            <mat-error *ngIf="f['email'].hasError('required')">
-                Email is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Phone</mat-label>
-            <input formControlName="phone" matInput placeholder="Phone">
-            <mat-error *ngIf="f['phone'].hasError('pattern') && !f['phone'].hasError('required')">
-                Please enter a valid phone
-            </mat-error>
-            <mat-error *ngIf="f['phone'].hasError('required')">
-                Phone is <strong>required</strong>
+            <mat-label>Contact Name</mat-label>
+            <input formControlName="contactName" matInput placeholder="Contact Name">
+            <mat-error *ngIf="f['contactName'].hasError('required')">
+                Contact Name is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -33,6 +20,27 @@
             <input formControlName="address" matInput placeholder="Address">
             <mat-error *ngIf="f['address'].hasError('required')">
                 Address is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input formControlName="city" matInput placeholder="City">
+            <mat-error *ngIf="f['city'].hasError('required')">
+                City is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Postal Code</mat-label>
+            <input formControlName="postalCode" matInput placeholder="Postal Code">
+            <mat-error *ngIf="f['postalCode'].hasError('required')">
+                Postal Code is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <input formControlName="country" matInput placeholder="Country">
+            <mat-error *ngIf="f['country'].hasError('required')">
+                Country is <strong>required</strong>
             </mat-error>
         </mat-form-field>
     </form>

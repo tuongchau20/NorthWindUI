@@ -15,7 +15,7 @@ import { NotificationService } from 'src/app/notification.service';
 })
 export class ListCustomersComponent implements OnInit {
 
-  displayedColumns: string[] = ['id','customerName', 'email', 'phone', 'address','action'];
+  displayedColumns: string[] = ['customerId','customerName', 'contactName', 'address','city','postalCode','country','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

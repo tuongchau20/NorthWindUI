@@ -6,14 +6,46 @@ import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SharedService {
-
-  readonly APIUrl = 'http://localhost:5177/api';
+  
+  readonly APIUrl = 'https://localhost:7074/api';
   private _refreshData = new Subject<void>();
   get RefreshedData(){
     return this._refreshData;
   }
   
   constructor(private http: HttpClient) { }
+  getAllShippers() {
+    return this.http.get<any>(this.APIUrl+'/shippers');
+
+  }
+  deleteShipper(val: any) {
+    return this.http.delete<any>(this.APIUrl+'/products/'+ val);
+
+  }
+
+  getAllCategories() {
+    return this.http.get<any>(this.APIUrl+'/categories');
+  }
+
+  deleteCategory(val: any) {
+    return this.http.delete<any>(this.APIUrl+'/categories/'+ val);
+  }
+  createCategory(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post<any>(this.APIUrl + '/categories', val, httpOptions).pipe(
+      tap(() => {
+        this._refreshData.next();
+      })
+    );
+  }
+  updateCategory(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put<any>(this.APIUrl + '/categories/' + val.id, val, httpOptions).pipe(
+      tap(() => {
+        this._refreshData.next();
+      })
+    );
+  }
   getAllProducts() {
     return this.http.get<any>(this.APIUrl+'/products');
   }
