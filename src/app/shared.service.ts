@@ -6,6 +6,20 @@ import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SharedService {
+  createShipper(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post<any>(this.APIUrl + '/shippers', val, httpOptions).pipe(
+      tap(() => {
+        this._refreshData.next();
+      })
+    );  }
+  updateShipper(val: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put<any>(this.APIUrl + '/shippers/' + val.id, val, httpOptions).pipe(
+      tap(() => {
+        this._refreshData.next();
+      })
+    );  }
   
   readonly APIUrl = 'https://localhost:7074/api';
   private _refreshData = new Subject<void>();

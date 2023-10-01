@@ -1,1 +1,23 @@
-<p>create-edit-shippers works!</p>
+<h1 mat-dialog-title>{{actionHeader}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="shipperForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Shipper Name</mat-label>
+            <input formControlName="shipperName" matInput placeholder="Shipper Name">
+            <mat-error *ngIf="f['shipperName'].hasError('required')">
+                Shipper Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input formControlName="phone" matInput placeholder="Phone">
+            <mat-error *ngIf="f['phone'].hasError('required')">
+                Phone is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="actionShipper()">{{actionBtn}}</button>
+</div>
